@@ -1,0 +1,20 @@
+{
+  "name": "jfrog-artifactory",
+  "version": "1.0.0",
+  "description": "learning jfrog artifactory",
+  "homepage": "https://github.com/Sarthak-1-8/Jfrog-Artifactory#readme",
+  "bugs": {
+    "url": "https://github.com/Sarthak-1-8/Jfrog-Artifactory/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Sarthak-1-8/Jfrog-Artifactory.git"
+  },
+  "license": "ISC",
+  "author": "sarthak",
+  "type": "commonjs",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
+}

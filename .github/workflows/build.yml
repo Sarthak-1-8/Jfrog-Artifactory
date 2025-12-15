@@ -1,0 +1,47 @@
+name: Build and Publish Artifact
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build
+        run: npm run build
+
+      - name: Install JFrog CLI
+        run: |
+          curl -fL https://getcli.jfrog.io | sh
+          sudo mv jfrog /usr/local/bin/jfrog
+
+      - name: Configure JFrog CLI
+        env:
+          JF_URL: ${{ secrets.ARTIFACTORY_URL }}
+          JF_USER: ${{ secrets.ARTIFACTORY_USER }}
+          JF_PASSWORD: ${{ secrets.ARTIFACTORY_PASSWORD }}
+        run: |
+          jfrog config add art-server \
+            --url=$JF_URL \
+            --user=$JF_USER \
+            --password=$JF_PASSWORD \
+            --interactive=false
+
+      - name: Upload Artifact
+        run: |
+          jfrog rt u "dist/*" my-npm-builds-local/ --build-name=my-app --build-number=$GITHUB_RUN_NUMBER
+          jfrog rt build-publish my-app $GITHUB_RUN_NUMBER
+
