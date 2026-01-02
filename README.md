@@ -45,6 +45,7 @@ jq --version
 jf rt ping
 ```
 
+
 ## Configuration
 
 Create a `cleanup.conf` file in the same directory as the script with the following format:
