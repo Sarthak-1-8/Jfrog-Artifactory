@@ -44,4 +44,5 @@ jobs:
         run: |
           jfrog rt u "dist/*" my-npm-build-local/ --build-name=my-app --build-number=$GITHUB_RUN_NUMBER
           jfrog rt build-publish my-app $GITHUB_RUN_NUMBER
+          
 
